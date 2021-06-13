@@ -1,5 +1,4 @@
 #include "Juego.h"
-#include "Jugador.h"
 
 int main() {
     /**
@@ -20,9 +19,9 @@ int main() {
     Juego juego;
 
     do {
-        juego.limpiarPrompt();
-        juego.imprimirPresentacion();
-        juego.siguientePaso();
+        juego.limpiarPrompt(); // genera espacio superior para limpiar la consola
+        juego.imprimirPresentacion(); // banner
+        juego.siguientePaso(); // paso a paso del juego
     } while (juego.sigueJugando());
 
     juego.imprimirResultado();

@@ -48,6 +48,11 @@ Coordenada Serpiente::getPosicionCabeza() {
 }
 
 void Serpiente::mover(int x, int y) {
+    /*
+     * serp = 4
+     * itera de 4 a 1
+     * 0 = a la nueva posicion x,y
+     */
     for (int i=tam_serpiente; i>0; i--) {
         posicion[i].setXY(posicion[i-1].getX(), posicion[i-1].getY());
     }

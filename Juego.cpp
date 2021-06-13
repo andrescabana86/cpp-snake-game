@@ -1,5 +1,4 @@
 #include <iostream>
-#include "string.h"
 #include "Juego.h"
 #include "Serpiente.h"
 
@@ -53,16 +52,23 @@ void Juego::imprimirPresentacion() {
 void Juego::siguientePaso() {
     actualizarTablero();
     imprimirTablero();
-    char direccion  = capturarMovimiento();
+    char direccion = capturarMovimiento();
     moverSerpiente(direccion);
 }
 
 void Juego::actualizarTablero() {
+    /*
+     * ################
+     * ################
+     * #######?########
+     * #######0#####?##
+     * #######0########
+     */
     for(int f=0; f<n_tablero_con_bordes; f++) {
         for (int c=0; c<n_tablero_con_bordes; c++) {
-            int cabeza = serpiente.revisarPosicion(f, c);
-            if (cabeza > -1) {
-                if (cabeza == 0) {
+            int parte_serpiente = serpiente.revisarPosicion(f, c);
+            if (parte_serpiente > -1) {
+                if (parte_serpiente == 0) {
                     tablero[f][c] = Serpiente::CABEZA_SERPIENTE;
                 } else {
                     tablero[f][c] = Serpiente::CUERPO_SERPIENTE;
@@ -81,11 +87,11 @@ void Juego::imprimirTablero() {
         for (int c=0; c<n_tablero_con_bordes; c++) {
             if (f > 0 && c > 0 && f < (n_tablero_con_bordes-1) && c < (n_tablero_con_bordes-1)) {
                 if (tablero[f][c] != PARED_TABLERO) {
-                    std::cout << "  " << tablero[f][c];
+                    std::cout << "  " << tablero[f][c]; // serpiente o manzana
                 } else {
-                    std::cout << "   ";
+                    std::cout << "   "; // # => reemplaza por tres espacios
                 }
-                continue;
+                continue; // continuar el ciclo desde aqui
             }
             std::cout << "  " << tablero[f][c];
         }
@@ -100,17 +106,22 @@ void Juego::limpiarPrompt() {
 }
 
 char Juego::capturarMovimiento() {
+    // obtener el movimiento del usuario
     char movimiento;
 
-    std::cout << std::endl;
-    imprimirMensaje("Para moverse: A = izquierda, S = abajo, D = derecha, W = arriba");
-    std::cout << "Ingrese movimiento: ", std::cin >> movimiento;
-    std::cout << std::endl;
+    do {
+        std::cout << std::endl;
+        imprimirMensaje("Para moverse: A = izquierda, S = abajo, D = derecha, W = arriba");
+        std::cout << "Ingrese movimiento: ", std::cin >> movimiento;
+        movimiento = toupper(movimiento);
+        std::cout << std::endl;
+    } while((movimiento != 'A' && movimiento != 'S' && movimiento != 'D' && movimiento != 'W'));
 
     return movimiento;
 }
 
 void Juego::moverSerpiente(char caracter) {
+    // mover la serpiente y definir si come o no
     char direccion = toupper(caracter);
     Coordenada cabeza = serpiente.getPosicionCabeza();
 
@@ -133,11 +144,15 @@ void Juego::moverSerpiente(char caracter) {
 
 
     if (serpiente.revisarPosicion(x, y) > -1) {
-        error(1);
+        limpiarPrompt();
+        actualizarTablero();
+        tablero[x][y] = Serpiente::CABEZA_MUERTA_SERPIENTE;
+        imprimirTablero();
+        terminarJuego();
         return;
     }
 
-    serpiente.mover(x, y);
+    serpiente.mover(x, y); // serpiente se mueve
 
     if (chocaConTablero(x, y)) {
         limpiarPrompt();
@@ -174,17 +189,6 @@ bool Juego::chocaConTablero(int x, int y) {
 
 bool Juego::sigueJugando() {
     return sigue_jugando;
-}
-
-void Juego::error(int code) {
-    switch (code) {
-        case 1:
-            imprimirMensaje("No puede girar en sentido opuesto a la cabeza! intente nuevamente...");
-            break;
-        default:
-            imprimirMensaje("Error desconocido! intente nuevamente...");
-            break;
-    }
 }
 
 void Juego::imprimirMensaje(std::string mensaje) {

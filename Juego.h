@@ -24,7 +24,6 @@ private:
     bool chocaConManzana(int, int);
     bool chocaConTablero(int, int);
     void moverSerpiente(char);
-    void error(int);
     void imprimirMensaje(std::string);
     void terminarJuego();
 public:
