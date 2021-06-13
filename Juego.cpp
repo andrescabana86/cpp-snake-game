@@ -77,7 +77,6 @@ void Juego::actualizarTablero() {
 }
 
 void Juego::imprimirTablero() {
-    std::cout << std::endl;
     for(int f=0; f<n_tablero_con_bordes; f++) {
         for (int c=0; c<n_tablero_con_bordes; c++) {
             if (f > 0 && c > 0 && f < (n_tablero_con_bordes-1) && c < (n_tablero_con_bordes-1)) {
@@ -92,14 +91,22 @@ void Juego::imprimirTablero() {
         }
         std::cout << std::endl;
     }
-    std::cout << std::endl;
+}
+
+void Juego::limpiarPrompt() {
+    int n;
+    for (n = 0; n < 10; n++)
+        printf( "\n\n\n\n\n\n\n\n\n\n" );
 }
 
 char Juego::capturarMovimiento() {
     char movimiento;
+
+    std::cout << std::endl;
     imprimirMensaje("Para moverse: A = izquierda, S = abajo, D = derecha, W = arriba");
     std::cout << "Ingrese movimiento: ", std::cin >> movimiento;
-    imprimirMensaje("");
+    std::cout << std::endl;
+
     return movimiento;
 }
 
@@ -133,6 +140,7 @@ void Juego::moverSerpiente(char caracter) {
     serpiente.mover(x, y);
 
     if (chocaConTablero(x, y)) {
+        limpiarPrompt();
         actualizarTablero();
         tablero[x][y] = Serpiente::CABEZA_MUERTA_SERPIENTE;
         imprimirTablero();

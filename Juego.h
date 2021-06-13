@@ -30,6 +30,7 @@ private:
 public:
     Juego();
     void imprimirPresentacion();
+    void limpiarPrompt();
     void siguientePaso();
     bool sigueJugando();
     void imprimirResultado();

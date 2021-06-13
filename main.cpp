@@ -18,9 +18,10 @@ int main() {
      */
 
     Juego juego;
-    juego.imprimirPresentacion();
 
     do {
+        juego.limpiarPrompt();
+        juego.imprimirPresentacion();
         juego.siguientePaso();
     } while (juego.sigueJugando());
 

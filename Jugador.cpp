@@ -21,6 +21,8 @@ void Jugador::incrementarPuntaje() {
 void Jugador::imprimirPuntajeFinal() {
     std::string final = "Partida Terminada!";
     std::string mensaje = "Jugador: " + nombre + ", Puntaje final: " + std::to_string(puntaje); + ".";
+
+    std::cout << std::endl;
     imprimirMensaje(final);
     imprimirMensaje(mensaje);
 }
