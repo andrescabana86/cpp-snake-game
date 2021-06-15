@@ -49,11 +49,9 @@ void Juego::imprimirPresentacion() {
     imprimirMensaje("");
 }
 
-void Juego::siguientePaso() {
+void Juego::actualizar() {
     actualizarTablero();
     imprimirTablero();
-    char direccion = capturarMovimiento();
-    moverSerpiente(direccion);
 }
 
 void Juego::actualizarTablero() {
@@ -103,21 +101,6 @@ void Juego::limpiarPrompt() {
     int n;
     for (n = 0; n < 10; n++)
         printf( "\n\n\n\n\n\n\n\n\n\n" );
-}
-
-char Juego::capturarMovimiento() {
-    // obtener el movimiento del usuario
-    char movimiento;
-
-    do {
-        std::cout << std::endl;
-        imprimirMensaje("Para moverse: A = izquierda, S = abajo, D = derecha, W = arriba");
-        std::cout << "Ingrese movimiento: ", std::cin >> movimiento;
-        movimiento = toupper(movimiento);
-        std::cout << std::endl;
-    } while((movimiento != 'A' && movimiento != 'S' && movimiento != 'D' && movimiento != 'W'));
-
-    return movimiento;
 }
 
 void Juego::moverSerpiente(char caracter) {

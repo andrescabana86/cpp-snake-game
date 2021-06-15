@@ -1,7 +1,3 @@
-#ifndef Included_Juego_H
-#define Included_Juego_H
-
-#include "iostream"
 #include "Coordenada.h"
 #include "Jugador.h"
 #include "Serpiente.h"
@@ -20,19 +16,16 @@ private:
     void crearManzana();
     void actualizarTablero();
     void imprimirTablero();
-    char capturarMovimiento();
     bool chocaConManzana(int, int);
     bool chocaConTablero(int, int);
-    void moverSerpiente(char);
     void imprimirMensaje(std::string);
     void terminarJuego();
 public:
     Juego();
     void imprimirPresentacion();
     void limpiarPrompt();
-    void siguientePaso();
+    void actualizar();
+    void moverSerpiente(char);
     bool sigueJugando();
     void imprimirResultado();
 };
-
-#endif

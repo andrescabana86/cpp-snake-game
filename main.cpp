@@ -21,7 +21,18 @@ int main() {
     do {
         juego.limpiarPrompt(); // genera espacio superior para limpiar la consola
         juego.imprimirPresentacion(); // banner
-        juego.siguientePaso(); // paso a paso del juego
+        juego.actualizar(); // paso a paso del juego
+
+        char movimiento;
+        do {
+            std::cout << std::endl;
+            std::cout << "Para moverse: A = izquierda, S = abajo, D = derecha, W = arriba" << std::endl;
+            std::cout << "Ingrese movimiento: ", std::cin >> movimiento;
+            movimiento = toupper(movimiento);
+            std::cout << std::endl;
+        } while((movimiento != 'A' && movimiento != 'S' && movimiento != 'D' && movimiento != 'W'));
+
+        juego.moverSerpiente(movimiento);
     } while (juego.sigueJugando());
 
     juego.imprimirResultado();

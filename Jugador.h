@@ -1,6 +1,3 @@
-#ifndef Included_Jugador_H
-#define Included_Jugador_H
-
 #include "iostream"
 
 class Jugador {
@@ -15,5 +12,3 @@ public:
     void incrementarPuntaje();
     void imprimirPuntajeFinal();
 };
-
-#endif
